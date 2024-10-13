@@ -1,13 +1,7 @@
-sealed class Figure(val property: Double)
-
-data class Square(val size: Double) : Figure(size) {
-    init {
-        this.toString()
-    }
+sealed class Figure() {
+    abstract val property: Double
 }
 
-data class Circle(val radius: Double) : Figure(radius) {
-    init {
-        this.toString()
-    }
-}
+data class Square(override val property: Double) : Figure()
+
+data class Circle(override val property: Double) : Figure()

@@ -47,13 +47,13 @@ class ResponseActions(val response: Response) {
     inner class BodyResponseMatcher {
         fun isNull() {
             if (response.body != null) {
-                throw BodyResponseMatchersException("response.Response body is not null")
+                throw BodyResponseMatchersException("Response body is not null")
             }
         }
 
         fun isNotNull() {
             if (response.body == null) {
-                throw BodyResponseMatchersException("response.Response body is null")
+                throw BodyResponseMatchersException("Response body is null")
             }
         }
     }
