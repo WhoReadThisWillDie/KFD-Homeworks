@@ -26,5 +26,5 @@ fun main() {
         println("task4 finished")
     }
 
-    threadPool.shutdown(true)
+    threadPool.shutdown(false)
 }
