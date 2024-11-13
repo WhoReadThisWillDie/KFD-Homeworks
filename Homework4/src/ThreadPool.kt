@@ -6,7 +6,6 @@ class ThreadPool(threadCount: Int) : Executor {
     private val tasksQueue = LinkedList<Runnable>()
 
     private var isRunning = true
-    private var isInterrupted = false
     private val lock = ReentrantLock()
     private val queueIsNotEmpty = lock.newCondition()
 
@@ -30,8 +29,9 @@ class ThreadPool(threadCount: Int) : Executor {
                 }
 
                 try {
-                    if (!isInterrupted) task?.run()
+                    if (!Thread.currentThread().isInterrupted) task?.run()
                 } catch (_: InterruptedException) {
+                    Thread.currentThread().interrupt()
                     println("Task is cancelled as ThreadPool was shut down")
                 }
             }
@@ -56,7 +56,6 @@ class ThreadPool(threadCount: Int) : Executor {
         lock.lock()
         try {
             isRunning = false
-            if (!wait) isInterrupted = true
             queueIsNotEmpty.signalAll()
         } finally {
             lock.unlock()
