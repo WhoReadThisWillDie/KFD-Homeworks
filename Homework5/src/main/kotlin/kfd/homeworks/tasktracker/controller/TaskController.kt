@@ -1,7 +1,7 @@
 package kfd.homeworks.tasktracker.controller
 
+import jakarta.servlet.http.HttpServletResponse
 import kfd.homeworks.tasktracker.model.request.TaskRequest
-import kfd.homeworks.tasktracker.model.response.DeletedResponse
 import kfd.homeworks.tasktracker.service.TaskService
 import org.springframework.web.bind.annotation.*
 
@@ -23,5 +23,6 @@ class TaskController(
     fun create(@RequestBody request: TaskRequest) = service.create(request)
 
     @DeleteMapping("/{id}")
-    fun delete(@PathVariable("id") id: Long): DeletedResponse = service.delete(id)
+    fun delete(@PathVariable("id") id: Long, response: HttpServletResponse) =
+        service.delete(id).also { response.status = 204 }
 }

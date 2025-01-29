@@ -2,8 +2,8 @@ package kfd.homeworks.tasktracker.service.impl
 
 import kfd.homeworks.tasktracker.database.entity.User
 import kfd.homeworks.tasktracker.database.repository.UserDao
+import kfd.homeworks.tasktracker.model.exception.NotFoundException
 import kfd.homeworks.tasktracker.model.request.UserRequest
-import kfd.homeworks.tasktracker.model.response.DeletedResponse
 import kfd.homeworks.tasktracker.model.response.TaskResponse
 import kfd.homeworks.tasktracker.model.response.UserResponse
 import kfd.homeworks.tasktracker.service.UserService
@@ -18,7 +18,7 @@ class UserServiceImpl(
     val taskMapper: TaskMapper
 ) : UserService {
     override fun getById(id: Long): User =
-        dao.findById(id).orElseThrow { throw RuntimeException("") }
+        dao.findById(id).orElseThrow { throw NotFoundException("User with id $id not found") }
 
     override fun getAll(): List<UserResponse> =
         dao.findAll().map { mapper.entityToResponse(it) }
@@ -41,9 +41,8 @@ class UserServiceImpl(
         return mapper.entityToResponse(dao.save(entity))
     }
 
-    override fun delete(id: Long): DeletedResponse {
+    override fun delete(id: Long) {
         val entity = getById(id)
         dao.delete(entity)
-        return DeletedResponse()
     }
 }

@@ -9,5 +9,4 @@ import jakarta.persistence.Table
 class State(
     @Column(nullable = false, unique = true)
     val name: String
-) : AbstractEntity() {
-}
+) : AbstractEntity()

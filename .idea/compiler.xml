@@ -5,7 +5,6 @@
       <module name="Homework5" target="21" />
       <module name="Homework5.main" target="21" />
       <module name="Homework5.test" target="21" />
-      <module name="TaskTracker.test" target="21" />
     </bytecodeTargetLevel>
   </component>
 </project>
